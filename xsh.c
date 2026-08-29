@@ -10,8 +10,8 @@ void print_prompt()
 
     if(getcwd(cwd, sizeof(cwd)) != NULL)
     {
-        printf("┌──(xsh@xsh)-[%s]\n", cwd);
-        printf("└─$ ");
+        printf(RED"┌──(xsh@xsh)-[%s]\n"RESET, cwd);
+        printf(BLUE"└─$ "RESET);
     }
 }
 
@@ -31,7 +31,9 @@ int exec_command(char *args[])
             
     if(pid < 0)
     {
+        printf(RED);
         perror("fork");
+        printf(RESET);
         return 1;
     }
     if(pid == 0)
@@ -39,7 +41,9 @@ int exec_command(char *args[])
         signal(SIGINT, SIG_DFL);
 
         execvp(args[0], args);
-        perror("\nexecvp");
+        printf(RED);
+        perror("\nxsh");
+        printf(RED);
         _exit(127);
     }
     else
@@ -82,7 +86,9 @@ int main()
             }
             else if (mkdir(args[1], 0755) != 0)
             {
+                printf(RED);
                 perror("xsh: mkdir");
+                printf(RESET);
             }
 
             continue;
@@ -105,13 +111,21 @@ int main()
                 if (home != NULL)
                 {
                     if (chdir(home) != 0)
-                    perror("xsh: cd");
+                    {
+                        printf(RED);
+                        perror("xsh: cd");
+                        printf(RESET);
+                    }    
                 }
             }
             else
             {
                 if (chdir(args[1]) != 0)
-                perror("xsh: cd");
+                {
+                    printf(RED);
+                    perror("xsh: cd");
+                    printf(RESET);
+                }
             }
 
             continue;

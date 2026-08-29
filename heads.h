@@ -2,6 +2,9 @@
 #define HEADS_H
 
 #define MAX_ARGS 20
+#define RED "\033[31m"
+#define BLUE "\033[34m"
+#define RESET "\033[0m"
 
 #include <stdio.h>
 #include <unistd.h>

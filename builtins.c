@@ -159,7 +159,9 @@ void exec_pipe(char *left[], char *right[])
 
     if (pipe(fd) == -1)
     {
+        printf(RED);
         perror("pipe");
+        printf(RESET);
         return;
     }
 
@@ -167,8 +169,10 @@ void exec_pipe(char *left[], char *right[])
 
     if (pid1 < 0)
     {
+        printf(RED);
         perror("fork");
         return;
+        printf(RESET);
     }
 
     if (pid1 == 0)
@@ -184,7 +188,9 @@ void exec_pipe(char *left[], char *right[])
 
         execvp(left[0], left);
 
+        printf(RED);
         perror("execvp");
+        printf(RESET);
         exit(1);
     }
 
@@ -192,7 +198,9 @@ void exec_pipe(char *left[], char *right[])
 
     if (pid2 < 0)
     {
+        printf(RED);
         perror("fork");
+        printf(RESET);
         return;
     }
 
@@ -209,7 +217,9 @@ void exec_pipe(char *left[], char *right[])
 
         execvp(right[0], right);
 
+        printf(RED);
         perror("execvp");
+        printf(RESET);
         exit(1);
     }
 
